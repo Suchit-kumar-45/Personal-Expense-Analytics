@@ -1,7 +1,8 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Form, Input, Button,message } from "antd";
 import { Link,useNavigate } from "react-router-dom";
 import Spinner from '../components/Spinner';
+import axios from 'axios';
 const Login = () => {
     const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
@@ -12,13 +13,20 @@ const Login = () => {
             const {data}=await axios.post('/api/v1/users/login',values);
             setLoading(false);
             message.success('Login Successful');
-            localStorage.setItem('user',JSON.stringify({...data,password:''}));
+            localStorage.setItem('user',
+              JSON.stringify({...data.user,password:''}));
             navigate('/');
         } catch (error) {
             setLoading(false);
             message.error('Something went wrong');
         }
     };
+      //prevent from login user
+    useEffect(() => {
+        if(localStorage.getItem('user')) {
+          navigate('/');
+        }
+        },[navigate]);
   return (
     <>
         <div className="login-page">
