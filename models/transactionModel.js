@@ -9,6 +9,11 @@ const transactionSchema=new mongoose.Schema({
         type:Number,
         required:[true,'amout is required']
     },
+    type: {        
+    type: String,
+    required: true
+    },
+
     category:{
         type:String,
         required:[true,'category is required']
