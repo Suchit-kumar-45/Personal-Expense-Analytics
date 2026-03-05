@@ -4,7 +4,7 @@ import { Modal, Form, Input, Select, Button, message, Table, DatePicker } from '
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import moment from 'moment';
-import { UnorderedListOutlined, AreaChartOutlined } from '@ant-design/icons';
+import { UnorderedListOutlined, AreaChartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Analytics from '../components/Analytics';
 const { RangePicker } = DatePicker;
 
@@ -16,6 +16,7 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState([]);
   const [type, setType] = useState('all');
   const [viewType, setViewType] = useState('table');
+  const [editable, setEditable] = useState(null);
 
   const columns = [
     { title: 'Date', dataIndex: 'date', render: (text) => <span>{moment(text).format("YYYY-MM-DD")}</span> },
@@ -23,6 +24,25 @@ const HomePage = () => {
     { title: 'Type', dataIndex: 'type' },
     { title: 'Category', dataIndex: 'category' },
     { title: 'Reference', dataIndex: 'reference' },
+    {
+      title: 'Actions',
+      render: (text, record) => (
+        <div>
+          <EditOutlined className='mx-2' onClick={()=>{
+            setEditable(record);
+            setShowModal(true);
+
+
+          }} />
+          <DeleteOutlined className='mx-2' 
+          onClick={()=>{handleDelete(record);
+
+          }}/>
+        </div>
+      )
+
+
+    }
   ];
 
   // GET ALL TRANSACTIONS
@@ -57,6 +77,23 @@ const HomePage = () => {
     getTransactions();
   }, [frequency, selectedDate, type]);
 
+  //delete handler
+  const handleDelete=async(record)=>{
+    try{
+      setLoading(true);
+      await axios.post('/api/v1/transactions/delete-transaction',{transactionId:record._id});
+      setLoading(false);
+      message.success('Transaction deleted successfully');
+
+    }catch(error)
+    {
+      setLoading(false);
+      console.log(error);
+      message.error('Error deleting transaction');
+      getTransactions();
+    }
+  }
+
   // ADD TRANSACTION
   const handleSubmit = async (values) => {
     try {
@@ -65,14 +102,32 @@ const HomePage = () => {
 
       setLoading(true);
 
-      await axios.post(
+      if(editable)
+      {
+        await axios.post(
+        '/api/v1/transactions/edit-transaction',{
+        payload:{
+           ...values,
+           userid: user._id,
+        },
+        transactionId:editable._id,
+      });
+        setLoading(false);
+        message.success('Transaction updated Successfully');
+      }
+      else
+      {
+        await axios.post(
         '/api/v1/transactions/add-transaction',
         { ...values, userid: user._id }
-      );
+        );
+        setLoading(false);
+        message.success('Transaction Added Successfully');
+      }
 
-      setLoading(false);
-      message.success('Transaction Added Successfully');
+      
       setShowModal(false);
+      setEditable(null);
 
       getTransactions();
 
@@ -135,12 +190,12 @@ const HomePage = () => {
       </div>
 
       <Modal
-        title="Add Transaction"
+        title={editable ? "Edit Transaction" : "Add Transaction"}
         open={showModal}
         footer={false}
         onCancel={() => setShowModal(false)}
       >
-        <Form layout="vertical" onFinish={handleSubmit}>
+        <Form layout="vertical" onFinish={handleSubmit} initialValues={editable}>
           <Form.Item label="Amount" name="amount">
             <Input type="number" />
           </Form.Item>
