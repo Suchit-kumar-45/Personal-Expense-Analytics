@@ -3,6 +3,7 @@ import { Form, Input, Button,message } from "antd";
 import { Link,useNavigate } from "react-router-dom";
 import Spinner from '../components/Spinner';
 import axios from 'axios';
+import "../styles/LoginPage.css";
 const Login = () => {
     const [loading,setLoading] = useState(false);
     const navigate = useNavigate();

@@ -1,0 +1,51 @@
+/* Login Page Background */
+.login-page{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Solid color with soft shade */
+  background: linear-gradient(135deg, #eef2f7, #dfe6ee);
+}
+
+/* Login Card */
+.login-page form{
+  background: #ffffff;
+  padding: 40px;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  border: 1px solid #e6e6e6;
+}
+
+/* Heading */
+.login-page h1{
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Inputs */
+.login-page .ant-input,
+.login-page .ant-input-password{
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* Login Button */
+.login-page button{
+  background: #1677ff;
+  border-radius: 6px;
+  border: none;
+}
+
+/* Link */
+.login-page a{
+  color: #1677ff;
+}
+
+.login-page a:hover{
+  text-decoration: underline;
+}
