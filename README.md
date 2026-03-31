@@ -35,7 +35,7 @@ This project demonstrates complete **frontend-backend integration** using REST A
 - MongoDB Atlas
 - Mongoose
 - bcrypt (Password hashing)
-- JWT (Authentication - if implemented)
+- JWT (Authentication)
 - CORS
 - Morgan
 - dotenv
