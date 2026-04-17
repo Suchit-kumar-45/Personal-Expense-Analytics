@@ -12,8 +12,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {BrowserRouter} from 'react-router-dom';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:8080';
-
+const apiBaseUrl = import.meta.env.VITE_API_URL || '';
+axios.defaults.baseURL = apiBaseUrl;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
