@@ -1,49 +1,62 @@
-*{
-  padding:0;
-  margin:0;
-  box-sizing:border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-.content{
-  height:100vh;
+
+html,
+body,
+#root {
+  min-height: 100%;
 }
-.navbar{
-  background-color:blue !important;
+
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #f8fafc;
+  background: #0b1220;
 }
-.register-page
-{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:90vh;
-  
+
+.content {
+  min-height: 100vh;
 }
-.login-page
-{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:90vh;
-  
+
+.navbar {
+  background-color: #1d4ed8 !important;
 }
-.filters{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px;
-  box-shadow: 0 0 3px gray;
+
+.register-page,
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px;
 }
-.switch-icons{
-  border: 1px solid black;
-  border-radius:5px;
-  padding:5px;
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.05);
 }
-.anticon svg{
-  font-size:20px;
+
+.switch-icons {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.anticon svg {
+  font-size: 20px;
   cursor: pointer;
 }
-.active-icon{
-  color:blue;
+
+.active-icon {
+  color: #2563eb;
 }
-.inactive-icon{
-  color:gray;
+
+.inactive-icon {
+  color: #94a3b8;
 }

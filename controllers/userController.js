@@ -30,9 +30,10 @@ const registerController = async (req, res) => {
       newUser,
     });
   } catch (error) {
+    const message = error?.message || 'Registration failed';
     res.status(400).json({
       success: false,
-      error,
+      error: message,
     });
   }
 };

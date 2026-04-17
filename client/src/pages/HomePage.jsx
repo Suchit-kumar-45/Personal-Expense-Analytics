@@ -65,7 +65,7 @@ const HomePage = () => {
       setLoading(true);
 
       const res = await axios.post(
-        "https://expense-backend-11q5.onrender.com/api/v1/transactions/get-all-transactions",
+        "/api/v1/transactions/get-all-transactions",
         {
           userid: user._id,
           frequency,
@@ -103,7 +103,7 @@ const HomePage = () => {
       setLoading(true);
 
       await axios.post(
-        "https://expense-backend-11q5.onrender.com/api/v1/transactions/delete-transaction",
+        "/api/v1/transactions/delete-transaction",
         { transactionId: record._id }
       );
 
@@ -141,7 +141,7 @@ const HomePage = () => {
       if (editable) {
 
         await axios.post(
-          "https://expense-backend-11q5.onrender.com/api/v1/transactions/edit-transaction",
+          "/api/v1/transactions/edit-transaction",
           {
             payload: {
               ...values,
@@ -160,7 +160,7 @@ const HomePage = () => {
       else {
 
         await axios.post(
-          "https://expense-backend-11q5.onrender.com/api/v1/transactions/add-transaction",
+          "/api/v1/transactions/add-transaction",
           {
             ...values,
             userid: user._id

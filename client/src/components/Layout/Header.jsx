@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {message} from 'antd/';
+import { DollarCircleOutlined } from '@ant-design/icons';
 
 const Header = () => {
     const [loginUser, setLoginUser] = useState(' ');
@@ -16,15 +17,22 @@ const logoutHandler = () => {
     message.success('Logout Successfully');
     navigate('/login');
 }
+
+const goHome = () => {
+    navigate('/');
+}
     return (
         <>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
                 <div className="container-fluid">
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="#navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <a className="navbar-brand" href="#">Personal Expense Analytics</a>
+                        <span className="navbar-brand d-flex align-items-center" style={{ cursor: 'pointer', gap: '10px' }} onClick={goHome}>
+                          <DollarCircleOutlined />
+                          Personal Expense Analytics
+                        </span>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item"><p className="nav-link">{loginUser && loginUser.name}</p></li>
                             <li className="nav-item">

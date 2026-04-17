@@ -1,73 +1,74 @@
-import React,{useState,useEffect} from 'react'
-import { Form, Input, Button,message } from "antd";
-import { Link,useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Spinner from '../components/Spinner';
-import "../styles/RegisterPage.css";
-
+import Spinner from '../components/Spinner';import BrandHeader from '../components/BrandHeader';import "../styles/RegisterPage.css";
 
 const Register = () => {
-    const navigate = useNavigate();
-    const [loading,setLoading] = useState(false);
-    //form submit
-    const submitHandler = async(values) => {
-        try {
-            setLoading(true);
-            await axios.post(
-            "https://expense-backend-11q5.onrender.com/api/v1/users/register",
-            values
-            );
-            message.success('Registration Successful');
-            setLoading(false);
-            navigate('/login');
-        } catch (error) {
-            setLoading(false);
-            message.error('Something went wrong');
-        }
-  };
-  //prevent from login user
-  useEffect(() => {
-    if(localStorage.getItem('user')) {
-      navigate('/');
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const submitHandler = async (values) => {
+    try {
+      setLoading(true);
+      await axios.post("/api/v1/users/register", values);
+      message.success('Registration Successful');
+      setLoading(false);
+      navigate('/login');
+    } catch (error) {
+      setLoading(false);
+      const serverMessage = error?.response?.data?.error || 'Something went wrong';
+      message.error(serverMessage);
     }
-    },[navigate]);
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      navigate('/dashboard');
+    }
+  }, [navigate]);
+
   return (
-    <div className="register-page">
-        {loading && <Spinner />}
-      <Form layout="vertical" onFinish={submitHandler}>
-        <h1>Register Form</h1>
+    <div className="register-container">
+      <div className="page-shell">
+        <BrandHeader />
 
-        <Form.Item
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: "Please enter your name" }]}
-        >
-          <Input />
-        </Form.Item>
+        {/* CARD */}
+        <div className="register-card">
+          {loading && <Spinner />}
 
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[{ required: true, message: "Please enter your email" }]}
-        >
-          <Input type="email" />
-        </Form.Item>
+          <div className="card-head">
+            <div className="icon-circle">⚡</div>
 
-        <Form.Item
-          label="Password"
-          name="password"
-          rules={[{ required: true, message: "Please enter your password" }]}
-        >
-          <Input.Password />
-        </Form.Item>
+            <h1>Create Account</h1>
+            <p className="subtitle">Sign up and bring clarity to your expenses.</p>
+          </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <Link to="/login">Already Registered? Click here to login</Link>
-          <Button type="primary" htmlType="submit" className="btn btn-primary">
-            Register
+        <Form layout="vertical" onFinish={submitHandler}>
+
+          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+            <Input placeholder="John Doe" />
+          </Form.Item>
+
+          <Form.Item name="email" label="Email" rules={[{ required: true }]}>
+            <Input placeholder="name@example.com" />
+          </Form.Item>
+
+          <Form.Item name="password" label="Password" rules={[{ required: true }]}>
+            <Input.Password placeholder="••••••••" />
+          </Form.Item>
+
+          <Button htmlType="submit" className="signup-btn">
+            Create Account
           </Button>
-        </div>
-      </Form>
+
+        </Form>
+
+        <p className="bottom-text">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+      </div>
+      </div>
     </div>
   );
 };
