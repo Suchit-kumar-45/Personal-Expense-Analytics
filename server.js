@@ -25,6 +25,8 @@ app.use(cors());
 app.use('/api/v1/users', require('./routes/userRoute'));
 //transaction routes
 app.use('/api/v1/transactions', require('./routes/transactionRoutes'));
+//insights routes
+app.use("/api/insights", require("./routes/insights"));
 
 //static files
 app.use(express.static(path.join(__dirname, "./client/dist") ));

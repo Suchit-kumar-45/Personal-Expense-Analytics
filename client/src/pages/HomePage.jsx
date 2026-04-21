@@ -6,6 +6,7 @@ import Spinner from '../components/Spinner';
 import moment from 'moment';
 import { UnorderedListOutlined, AreaChartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Analytics from '../components/Analytics';
+import Insights from '../components/Insights';
 
 const { RangePicker } = DatePicker;
 
@@ -290,7 +291,10 @@ const HomePage = () => {
 
       </div>
 
-
+      {/* Insights Section */}
+      <div className="insights-section mb-4">
+        <Insights userId={JSON.parse(localStorage.getItem('user'))?._id} />
+      </div>
 
       <div className="content">
 
