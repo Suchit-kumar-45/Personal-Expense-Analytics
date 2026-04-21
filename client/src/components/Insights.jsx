@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function Insights({ userId }) {
+export default function Insights({ userId, refreshTrigger }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ export default function Insights({ userId }) {
     if (userId) {
       fetchInsights();
     }
-  }, [userId]);
+  }, [userId, refreshTrigger]);
 
   if (loading) return <div className="text-center"><p>Loading insights...</p></div>;
   if (error) return <div className="text-center"><p className="text-danger">{error}</p></div>;

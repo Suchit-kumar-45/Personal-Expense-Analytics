@@ -20,6 +20,7 @@ const HomePage = () => {
   const [type, setType] = useState('all');
   const [viewType, setViewType] = useState('table');
   const [editable, setEditable] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   const columns = [
     {
@@ -89,7 +90,7 @@ const HomePage = () => {
   useEffect(() => {
 
     getTransactions();
-
+      setRefreshTrigger(prev => prev + 1);
   }, [frequency, selectedDate, type]);
 
 
@@ -113,7 +114,7 @@ const HomePage = () => {
       message.success('Transaction deleted successfully');
 
       getTransactions();
-
+      setRefreshTrigger(prev => prev + 1);
     } catch (error) {
 
       setLoading(false);
@@ -180,7 +181,7 @@ const HomePage = () => {
       setEditable(null);
 
       getTransactions();
-
+      setRefreshTrigger(prev => prev + 1);
     }
 
     catch (error) {
@@ -293,7 +294,7 @@ const HomePage = () => {
 
       {/* Insights Section */}
       <div className="insights-section mb-4">
-        <Insights userId={JSON.parse(localStorage.getItem('user'))?._id} />
+        <Insights userId={JSON.parse(localStorage.getItem('user'))?._id} refreshTrigger={refreshTrigger} />
       </div>
 
       <div className="content">
