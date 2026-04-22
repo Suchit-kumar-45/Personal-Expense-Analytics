@@ -54,9 +54,14 @@ const editTransaction = async (req, res) => {
 
     try {
 
+        const payload = req.body.payload;
+        if (payload.date) {
+            payload.date = new Date(payload.date);
+        }
+
         await transactionModel.findByIdAndUpdate(
             req.body.transactionId,
-            req.body.payload
+            payload
         );
 
         res.status(200).json({
@@ -97,6 +102,9 @@ const addTransaction = async (req, res) => {
     try {
 
         const newTransaction = new transactionModel(req.body);
+        if (req.body.date) {
+            newTransaction.date = new Date(req.body.date);
+        }
 
         await newTransaction.save();
 

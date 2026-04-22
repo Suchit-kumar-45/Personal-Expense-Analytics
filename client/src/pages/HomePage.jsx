@@ -7,6 +7,7 @@ import moment from 'moment';
 import { UnorderedListOutlined, AreaChartOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import Analytics from '../components/Analytics';
 import Insights from '../components/Insights';
+import Budget from "../components/Budget";
 
 const { RangePicker } = DatePicker;
 
@@ -297,6 +298,11 @@ const HomePage = () => {
         <Insights userId={JSON.parse(localStorage.getItem('user'))?._id} refreshTrigger={refreshTrigger} />
       </div>
 
+      {/* 💰 Budget Section */}
+      <div className="budget-section mb-4">
+        <Budget userId={JSON.parse(localStorage.getItem('user'))?._id} refreshTrigger={refreshTrigger} />
+      </div>
+
       <div className="content">
 
         {viewType === 'table'
@@ -327,7 +333,7 @@ const HomePage = () => {
 
       >
 
-        <Form layout="vertical" onFinish={handleSubmit} initialValues={editable}>
+        <Form layout="vertical" onFinish={handleSubmit} initialValues={editable || { date: moment().format('YYYY-MM-DD') }}>
 
           <Form.Item label="Amount" name="amount">
 

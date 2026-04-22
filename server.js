@@ -27,6 +27,8 @@ app.use('/api/v1/users', require('./routes/userRoute'));
 app.use('/api/v1/transactions', require('./routes/transactionRoutes'));
 //insights routes
 app.use("/api/insights", require("./routes/insights"));
+//budget routes
+app.use("/api/budget", require("./routes/budget"));
 
 //static files
 app.use(express.static(path.join(__dirname, "./client/dist") ));
