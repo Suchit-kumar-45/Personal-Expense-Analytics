@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import {message} from 'antd/';
 import { DollarCircleOutlined } from '@ant-design/icons';
-import axios from 'axios';
 
 const Header = () => {
     const [loginUser, setLoginUser] = useState(' ');
@@ -15,8 +14,6 @@ const Header = () => {
     }, []);
 const logoutHandler = () => {
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    delete axios.defaults.headers.common['Authorization'];
     message.success('Logout Successfully');
     navigate('/login');
 }

@@ -12,10 +12,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {BrowserRouter} from 'react-router-dom';
 import axios from 'axios';
 
-const token = localStorage.getItem('token');
-if (token) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
 const apiBaseUrl = import.meta.env.VITE_API_URL || '';
 axios.defaults.baseURL = apiBaseUrl;
 

@@ -10,7 +10,7 @@ export default function Insights({ userId, refreshTrigger }) {
     const fetchInsights = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/insights`);
+        const res = await axios.get(`/api/insights/${userId}`);
         setData(res.data);
         setError(null);
       } catch (error) {

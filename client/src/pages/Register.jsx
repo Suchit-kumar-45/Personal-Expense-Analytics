@@ -23,7 +23,7 @@ const Register = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('user')) {
       navigate('/dashboard');
     }
   }, [navigate]);

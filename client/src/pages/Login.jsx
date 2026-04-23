@@ -18,9 +18,8 @@ const Login = () => {
             );
             setLoading(false);
             message.success('Login Successful');
-            localStorage.setItem('token', data.token); localStorage.setItem('user',
+            localStorage.setItem('user',
               JSON.stringify({...data.user,password:''}));
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
             navigate('/dashboard');
         } catch (error) {
             setLoading(false);
@@ -29,7 +28,7 @@ const Login = () => {
     };
       //prevent from login user
     useEffect(() => {
-        if(localStorage.getItem('token')) {
+        if(localStorage.getItem('user')) {
           navigate('/dashboard');
         }
         },[navigate]);

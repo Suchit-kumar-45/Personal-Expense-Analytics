@@ -6,7 +6,7 @@ const moment = require('moment');
 const getAllTransactions = async (req, res) => {
     try {
 
-        const { frequency, selectedDate, type } = req.body; const userid = req.user._id.toString();
+        const { frequency, userid, selectedDate, type } = req.body;
 
         let query = { userid };
 
@@ -101,7 +101,6 @@ const addTransaction = async (req, res) => {
 
     try {
 
-        req.body.userid = req.user._id;
         const newTransaction = new transactionModel(req.body);
         if (req.body.date) {
             newTransaction.date = new Date(req.body.date);
