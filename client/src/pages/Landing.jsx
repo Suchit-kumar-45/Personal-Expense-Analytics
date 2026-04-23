@@ -8,7 +8,7 @@ const Landing = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem('user')) {
+    if (localStorage.getItem('token')) {
       navigate('/dashboard');
     }
   }, [navigate]);

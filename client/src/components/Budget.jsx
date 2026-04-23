@@ -8,7 +8,7 @@ export default function Budget({ userId, refreshTrigger }) {
 
   const fetchBudget = async () => {
     try {
-      const res = await axios.get(`/api/budget/${userId}`);
+      const res = await axios.get(`/api/budget`);
       console.log("Budget data:", res.data);
       setData(res.data);
     } catch (err) {
@@ -27,7 +27,7 @@ export default function Budget({ userId, refreshTrigger }) {
         message.error("Please enter a valid budget amount");
         return;
       }
-      await axios.post(`/api/budget`, { userId, amount: parseFloat(amount) });
+      await axios.post(`/api/budget`, { amount: parseFloat(amount) });
       message.success("Budget updated");
       setAmount("");
       fetchBudget();

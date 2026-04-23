@@ -1,10 +1,11 @@
 const express = require("express");
+const authMiddleware = require("../config/authMiddleware");
 const router = express.Router();
 const Transaction = require("../models/transactionModel");
 
-router.get("/:userId", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user._id.toString();
 
     const now = new Date();
     const currentMonth = now.getMonth();
@@ -58,7 +59,7 @@ router.get("/:userId", async (req, res) => {
       ? ((currentTotal - prevTotal) / prevTotal) * 100
       : 0;
 
-    const topCategory = currentData.sort((a, b) => b.total - a.total)[0]?._id;
+    const topCategory = currentData.length > 0 ? currentData.sort((a, b) => b.total - a.total)[0]._id : "No expenses";
 
     res.json({
       currentTotal,

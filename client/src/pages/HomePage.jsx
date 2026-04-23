@@ -70,7 +70,7 @@ const HomePage = () => {
       const res = await axios.post(
         "/api/v1/transactions/get-all-transactions",
         {
-          userid: user._id,
+          
           frequency,
           selectedDate,
           type
@@ -148,7 +148,7 @@ const HomePage = () => {
           {
             payload: {
               ...values,
-              userid: user._id
+              
             },
             transactionId: editable._id
           }
@@ -166,7 +166,7 @@ const HomePage = () => {
           "/api/v1/transactions/add-transaction",
           {
             ...values,
-            userid: user._id
+            
           }
         );
 

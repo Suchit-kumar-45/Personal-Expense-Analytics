@@ -1,12 +1,13 @@
 const express = require("express");
+const authMiddleware = require("../config/authMiddleware");
 const router = express.Router();
 const Budget = require("../models/budgetModel");
 const Transaction = require("../models/transactionModel");
 
 // ➤ Set Budget
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
-    const { userId, amount } = req.body;
+    const { amount } = req.body; const userId = req.user._id.toString();
     const numAmount = parseFloat(amount);
 
     console.log("Setting Budget - userId:", userId, "amount:", numAmount);
@@ -40,9 +41,9 @@ router.post("/", async (req, res) => {
 });
 
 // ➤ Get Budget Status
-router.get("/:userId", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user._id.toString();
 
     const now = new Date();
 
