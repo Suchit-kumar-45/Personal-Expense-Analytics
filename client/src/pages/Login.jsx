@@ -13,13 +13,13 @@ const Login = () => {
         try {
             setLoading(true);
             const { data } = await axios.post(
-            "/api/v1/users/login",
-            values
+                "/api/v1/users/login",
+                values
             );
             setLoading(false);
             message.success('Login Successful');
-            localStorage.setItem('user',
-              JSON.stringify({...data.user,password:''}));
+            localStorage.setItem('user', JSON.stringify({ ...data.user, password: '' }));
+            localStorage.setItem('token', data.token);
             navigate('/dashboard');
         } catch (error) {
             setLoading(false);

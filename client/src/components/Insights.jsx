@@ -10,7 +10,12 @@ export default function Insights({ userId, refreshTrigger }) {
     const fetchInsights = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/insights/${userId}`);
+        const token = localStorage.getItem('token');
+        const res = await axios.get(`/api/insights/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setData(res.data);
         setError(null);
       } catch (error) {
@@ -20,7 +25,6 @@ export default function Insights({ userId, refreshTrigger }) {
         setLoading(false);
       }
     };
-
     if (userId) {
       fetchInsights();
     }

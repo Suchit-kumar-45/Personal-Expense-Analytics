@@ -8,7 +8,12 @@ export default function Budget({ userId, refreshTrigger }) {
 
   const fetchBudget = async () => {
     try {
-      const res = await axios.get(`/api/budget/${userId}`);
+      const token = localStorage.getItem('token');
+      const res = await axios.get(`/api/budget/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       console.log("Budget data:", res.data);
       setData(res.data);
     } catch (err) {
@@ -27,7 +32,12 @@ export default function Budget({ userId, refreshTrigger }) {
         message.error("Please enter a valid budget amount");
         return;
       }
-      await axios.post(`/api/budget`, { userId, amount: parseFloat(amount) });
+      const token = localStorage.getItem('token');
+      await axios.post(`/api/budget`, { userId, amount: parseFloat(amount) }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       message.success("Budget updated");
       setAmount("");
       fetchBudget();

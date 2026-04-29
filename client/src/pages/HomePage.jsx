@@ -64,9 +64,8 @@ const HomePage = () => {
 
       const user = JSON.parse(localStorage.getItem('user'));
       if (!user) return;
-
+      const token = localStorage.getItem('token');
       setLoading(true);
-
       const res = await axios.post(
         "/api/v1/transactions/get-all-transactions",
         {
@@ -74,9 +73,13 @@ const HomePage = () => {
           frequency,
           selectedDate,
           type
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
-
       setTransactions(res.data.transactions);
       setLoading(false);
 
@@ -105,9 +108,15 @@ const HomePage = () => {
 
       setLoading(true);
 
+      const token = localStorage.getItem('token');
       await axios.post(
         "/api/v1/transactions/delete-transaction",
-        { transactionId: record._id }
+        { transactionId: record._id },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       setLoading(false);
@@ -143,6 +152,7 @@ const HomePage = () => {
 
       if (editable) {
 
+        const token = localStorage.getItem('token');
         await axios.post(
           "/api/v1/transactions/edit-transaction",
           {
@@ -151,6 +161,11 @@ const HomePage = () => {
               userid: user._id
             },
             transactionId: editable._id
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 
@@ -162,11 +177,17 @@ const HomePage = () => {
 
       else {
 
+        const token = localStorage.getItem('token');
         await axios.post(
           "/api/v1/transactions/add-transaction",
           {
             ...values,
             userid: user._id
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 

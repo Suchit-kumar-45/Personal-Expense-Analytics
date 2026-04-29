@@ -1,22 +1,18 @@
 const express = require('express');
 const { addTransaction, getAllTransactions, editTransaction, deleteTransaction } = require('../controllers/transactionCtrl');
+const authMiddleware = require('../config/authMiddleware');
 
 
 //router object 
 const router=express.Router();
 
 //routers
-//add transaction POST method
-router.post('/add-transaction', addTransaction);
 
-//Edit transaction POST method
-router.post('/edit-transaction', editTransaction);
-
-//Delete transaction POST method
-router.post('/delete-transaction', deleteTransaction);
-
-//get all transactions GET method
-router.post('/get-all-transactions', getAllTransactions);
+// All transaction routes are protected
+router.post('/add-transaction', authMiddleware, addTransaction);
+router.post('/edit-transaction', authMiddleware, editTransaction);
+router.post('/delete-transaction', authMiddleware, deleteTransaction);
+router.post('/get-all-transactions', authMiddleware, getAllTransactions);
 
 
 module.exports=router;
