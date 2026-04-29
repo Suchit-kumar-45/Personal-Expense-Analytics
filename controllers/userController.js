@@ -6,9 +6,18 @@ const bcrypt = require("bcryptjs");
 const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required."
+      });
+    }
     const user = await userModel.findOne({ email });
     if (!user) {
-      return res.status(404).send("User Not Found");
+      return res.status(404).json({
+        success: false,
+        message: "User Not Found"
+      });
     }
     // Compare password
     const isMatch = await bcrypt.compare(password, user.password);
@@ -30,9 +39,10 @@ const loginController = async (req, res) => {
       },
     });
   } catch (error) {
+    console.error("Login error:", error);
     res.status(400).json({
       success: false,
-      error,
+      message: error.message || "Login failed",
     });
   }
 };
